@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+    
+<div class="center" style="text-align: center;">
+    <h1>Book Reviews</h1>
+  </div>
+  <div class="jumbotron">
+    {% for post in object_list %}
+    {% if post.blog_type == 'Book Review' %}
+    <h2 class="display-4">{{ post.title }}</h2>
+    <p>{{ post.author.first_name }} {{ post.author.last_name }}</p>
+    <em class="lead">{{ post.body|slice:":100"|safe }} .... <a href="{% url 'article-detail' post.pk %}">Read More</a></em> 
+    <hr class="my-4">
+    {% endif %}
+    {% endfor %}
+  </div>
+
+{% endblock %}
