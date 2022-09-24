@@ -7,12 +7,12 @@
 {% block content %}
 
 <h1>{{ post.title }}</h1>
-<small><em>{{ post.author.first_name }} {{ post.author.last_name }}</em></small>
+<small><em>{{ post.author.first_name }} {{ post.author.last_name }}</em>&nbsp;&nbsp;</small>
 {% if user.is_authenticated %}
     {% if user.id == post.author.id %}
 
-    <a href="#"><i class="fa-light fa-file-pen"></i> Home</a>
- - <a href="{% url 'delete_post' post.pk %}">Delete</a>
+    <a href="{% url 'update_post' post.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+    &nbsp;&nbsp;&nbsp; <a href="{% url 'delete_post' post.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
     {% endif %}
 
