@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.contrib.auth import login, authenticate
 from django.views.generic import DetailView, CreateView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.urls import reverse_lazy
@@ -51,7 +52,19 @@ class PasswordsChangeView(PasswordChangeView):
 class UserRegisterView(generic.CreateView):
     form_class = SignUpForm
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('login')
+    #success_url = reverse_lazy('login')
+    success_url = reverse_lazy('create_profile_page')
+    
+    def form_valid(self, form):
+        to_return = super().form_valid(form)
+        user = authenticate(
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password1"],
+        )
+        login(self.request, user)
+        return to_return
+    
+    
     
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
